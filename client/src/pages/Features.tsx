@@ -303,7 +303,7 @@ export default function Features() {
             muted
             playsInline
             preload="metadata"
-            poster="/website-photos/features-page-cta-video-poster.png"
+            poster="/website-photos/features-page-hero-video-poster.png"
             className="absolute inset-0 w-full h-full object-cover opacity-70"
             style={{ willChange: 'transform' }}
           />
