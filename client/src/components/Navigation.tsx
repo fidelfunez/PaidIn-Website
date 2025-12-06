@@ -37,14 +37,25 @@ export default function Navigation() {
     return false;
   };
 
+  const isFeaturesPage = location === "/features";
+  const isSecurityPage = location === "/security";
+  const isAboutPage = location === "/about";
+  const isContactPage = location === "/contact";
+  const isDarkBackgroundPage = isFeaturesPage || isSecurityPage || isAboutPage || isContactPage; // Contact page has dark background
   const shouldShowScrolledStyle = isScrolled || isHovered;
+  // Pages that need synchronized hide animation
+  const needsSynchronizedHide = isFeaturesPage || isSecurityPage || isAboutPage || isContactPage;
 
   return (
     <motion.nav 
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 w-full z-50 ${
+        needsSynchronizedHide 
+          ? 'transition-[background-color,backdrop-filter,box-shadow,border-color] duration-300 ease-in-out' 
+          : 'transition-all duration-500'
+      } ${
         shouldShowScrolledStyle
           ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-gray-200/60' 
-          : 'bg-transparent backdrop-blur-none'
+          : 'bg-transparent backdrop-blur-none border-b border-transparent'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -77,7 +88,7 @@ export default function Navigation() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                <span className="text-gray-900">Paid</span><span className="text-bitcoin">In</span>
+                <span className={isDarkBackgroundPage && !shouldShowScrolledStyle ? "text-white" : "text-gray-900"}>Paid</span><span className="text-bitcoin">In</span>
               </motion.span>
             </Link>
 
@@ -95,6 +106,8 @@ export default function Navigation() {
                       className={`text-sm font-light tracking-wide transition-colors duration-300 ${
                         active
                           ? "text-bitcoin"
+                          : isDarkBackgroundPage && !shouldShowScrolledStyle
+                          ? "text-white/80 hover:text-bitcoin"
                           : "text-gray-700 hover:text-bitcoin"
                       }`}
                       whileHover={{ scale: 1.05 }}
@@ -124,16 +137,22 @@ export default function Navigation() {
               })}
               {/* Elegant Separator */}
               <div className="relative flex items-center pl-8 ml-2">
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
-                <BtcPriceTicker />
+                <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-6 w-px bg-gradient-to-b from-transparent to-transparent ${
+                  isDarkBackgroundPage && !shouldShowScrolledStyle ? "via-white/30" : "via-gray-300"
+                }`}></div>
+                <BtcPriceTicker isDarkBackground={isDarkBackgroundPage && !shouldShowScrolledStyle} />
               </div>
             </div>
 
             <div className="hidden md:flex items-center space-x-3">
-              <LanguageSwitcher />
+              <LanguageSwitcher isDarkBackground={isDarkBackgroundPage && !shouldShowScrolledStyle} />
               <AnimatedButton 
                 variant="ghost" 
-                className="text-gray-700 hover:text-bitcoin font-medium text-sm px-4 h-9 rounded-full transition-all duration-300 hover:bg-orange-50/50"
+                className={`font-medium text-sm px-4 h-9 rounded-full transition-all duration-300 hover:bg-orange-50/50 ${
+                  isDarkBackgroundPage && !shouldShowScrolledStyle
+                    ? "text-white/80 hover:text-bitcoin"
+                    : "text-gray-700 hover:text-bitcoin"
+                }`}
                 onClick={() => window.location.href = 'https://app.paidin.io'}
               >
                 Login

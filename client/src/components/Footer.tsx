@@ -1,21 +1,34 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Bitcoin, Mail } from "lucide-react";
-import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import { FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
-export default function Footer() {
+function Footer() {
+  const [location] = useLocation();
+  const isFeaturesPage = location === "/features";
+  
+  // Use black/orange styling for Features page, blue tones for others
+  const bgColor = isFeaturesPage ? "bg-black" : "bg-[#0f161f]";
+  const footerBg = isFeaturesPage ? "bg-black" : "bg-gray-900";
+  const borderColor = isFeaturesPage ? "border-gray-800" : "border-gray-800";
+  const accentBg = isFeaturesPage ? "bg-black" : "bg-[#0f161f]";
+  const shadowStyle = isFeaturesPage 
+    ? '0 10px 30px rgba(247, 147, 26, 0.4), 0 5px 15px rgba(247, 147, 26, 0.3)'
+    : '0 10px 30px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3)';
+  
   return (
-    <div className="relative bg-[#0f161f]">
+    <div className={`relative ${bgColor}`}>
       {/* Background layer for rounded corners */}
-      <div className="absolute inset-0 bg-[#0f161f] pointer-events-none" style={{ zIndex: 0 }} />
+      <div className={`absolute inset-0 ${bgColor} pointer-events-none`} style={{ zIndex: 0 }} />
       
       {/* Main Footer Section - In Front */}
       <footer 
-        className="relative bg-gray-900 text-white border-t border-gray-800 rounded-b-3xl lg:rounded-b-[2rem]"
+        className={`relative ${footerBg} text-white border-t ${borderColor} rounded-b-3xl lg:rounded-b-[2rem]`}
         style={{
           position: 'relative',
           zIndex: 20,
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3)',
+          boxShadow: shadowStyle,
         }}
       >
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -40,7 +53,9 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex space-x-4 mb-6">
               <a
-                href="#"
+                href="https://x.com/PaidInHQ"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-bitcoin transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
                 aria-label="X (Twitter)"
               >
@@ -49,14 +64,18 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/paidin.io"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-bitcoin transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
                 aria-label="Instagram"
               >
                 <FaInstagram className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="http://linkedin.com/company/paidin-software"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-bitcoin transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
                 aria-label="LinkedIn"
               >
@@ -65,9 +84,9 @@ export default function Footer() {
               <a
                 href="#"
                 className="text-gray-400 hover:text-bitcoin transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
-                aria-label="GitHub"
+                aria-label="Facebook"
               >
-                <FaGithub className="h-5 w-5" />
+                <FaFacebook className="h-5 w-5" />
               </a>
             </div>
 
@@ -183,7 +202,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-1 text-xs text-gray-500">
                 <Bitcoin className="h-3 w-3" />
-                <span>Powered by Bitcoin</span>
+                <span>- Powered by Bitcoin</span>
               </div>
             </div>
             
@@ -199,7 +218,7 @@ export default function Footer() {
 
       {/* Artistic Brand Accent Section */}
       <section 
-        className="relative w-full overflow-hidden bg-[#0f161f]"
+        className={`relative w-full overflow-hidden ${accentBg}`}
         aria-hidden="true"
         style={{ paddingBottom: 0, marginBottom: 0 }}
       >
@@ -241,7 +260,19 @@ export default function Footer() {
               viewport={{ once: true, margin: "-200px" }}
               transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
               className="text-[80px] sm:text-[120px] lg:text-[280px] xl:text-[380px] 2xl:text-[480px] font-black uppercase tracking-tighter select-none"
-              style={{ 
+              style={isFeaturesPage ? {
+                fontFamily: 'Poppins, sans-serif',
+                lineHeight: 0.9,
+                letterSpacing: '-0.04em',
+                WebkitTextFillColor: 'transparent',
+                WebkitTextStroke: '3px #f7931a',
+                paddingBottom: 0,
+                marginBottom: '-0.1em',
+                paddingTop: 0,
+                marginTop: 0,
+                display: 'block',
+                verticalAlign: 'bottom',
+              } : {
                 fontFamily: 'Poppins, sans-serif',
                 lineHeight: 0.9,
                 letterSpacing: '-0.04em',
@@ -265,3 +296,5 @@ export default function Footer() {
     </div>
   );
 }
+
+export default memo(Footer);

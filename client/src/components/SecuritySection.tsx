@@ -1,7 +1,6 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Shield, Lock, Eye, Server, CheckCircle2, Fingerprint, Zap, Key, ChevronLeft, ChevronRight } from "lucide-react";
-
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 
 // Hash characters for the scrambling effect
 const hashChars = "0123456789abcdef";
@@ -197,7 +196,7 @@ const certifications = [
   { name: "PCI DSS", icon: "💳", description: "Payment secure" },
 ];
 
-export default function SecuritySection() {
+function SecuritySection() {
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -505,7 +504,7 @@ export default function SecuritySection() {
 
             {/* Metrics Strip */}
             <div className="relative mt-16">
-              <div className="flex flex-col gap-6 rounded-[32px] border border-white/10 bg-white/3 px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+              <div className="flex flex-col gap-6 rounded-[32px] border-2 border-white/25 bg-white/5 px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-10 shadow-lg shadow-black/20">
                 {[
                   { value: "99.995%", label: "Vault Uptime" },
                   { value: "<120s", label: "Threat Signal Dispatch" },
@@ -527,7 +526,7 @@ export default function SecuritySection() {
 
         {/* Defensive Systems - Side by Side Layout */}
         <div className="relative mb-28 lg:mb-40">
-          <div className="grid lg:grid-cols-[1.15fr,0.85fr] gap-3 lg:gap-4 max-w-7xl mx-auto items-center">
+          <div className="grid lg:grid-cols-[1.3fr,0.7fr] gap-3 lg:gap-4 max-w-7xl mx-auto items-center">
             {/* Left: Defensive Systems Card */}
           <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -639,7 +638,7 @@ export default function SecuritySection() {
                         className="flex flex-col items-center w-full"
                       >
                         {/* Photo */}
-                        <div className="relative w-full max-w-md lg:max-w-lg aspect-square overflow-visible flex items-center justify-center">
+                        <div className="relative w-full max-w-xs lg:max-w-sm aspect-square overflow-visible flex items-center justify-center">
                           <img
                             src={feature.image}
                             alt={feature.title}
@@ -729,4 +728,6 @@ export default function SecuritySection() {
     </section>
   );
 }
+
+export default memo(SecuritySection);
 

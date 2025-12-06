@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import SEOHead from "@/components/SEOHead";
 import { 
   CheckCircle2,
   ArrowRight,
@@ -26,7 +27,7 @@ const pricingPlans = [
     annualPrice: 1499.99,
     popular: false,
     icon: Zap,
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-orange-300 to-orange-400",
     employeeLimit: "Up to 10 employees",
     features: [
       "Up to 10 employees",
@@ -38,7 +39,7 @@ const pricingPlans = [
       "Multi-signature wallets",
       "Real-time sync"
     ],
-    cta: "Get Started",
+    cta: "Start Free Trial",
   },
   {
     name: "Growth",
@@ -52,7 +53,7 @@ const pricingPlans = [
     features: [
       "Up to 50 employees",
       "Everything in Starter",
-      "Advanced reporting & analytics",
+      "Advanced reporting",
       "API access",
       "Custom integrations",
       "Priority support",
@@ -70,7 +71,7 @@ const pricingPlans = [
     annualPrice: 9999.99,
     popular: false,
     icon: Building2,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-orange-600 to-orange-700",
     employeeLimit: "Up to 100 employees",
     features: [
       "Up to 100 employees",
@@ -99,13 +100,13 @@ const pricingPlans = [
       "Unlimited employees",
       "Everything in Scale",
       "Dedicated account manager",
-      "Custom security configurations",
+      "Custom security configs.",
       "SLA guarantees",
       "24/7 phone support",
       "Advanced compliance tools",
       "Custom reporting",
-      "On-premise deployment options",
-      "Training & onboarding"
+      "Training & onboarding",
+      "On-premise deployment options"
     ],
     cta: "Contact Sales",
   },
@@ -159,7 +160,7 @@ const featureComparison = [
     starter: "Email",
     growth: "Priority",
     scale: "Dedicated Channel",
-    enterprise: "24/7 Phone + Dedicated Manager"
+    enterprise: "Dedicated Manager"
   },
   {
     feature: "Multi-Signature Wallets",
@@ -230,7 +231,13 @@ export default function Pricing() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="relative bg-gradient-to-b from-gray-50 via-white to-gray-50">
+    <>
+      <SEOHead 
+        title="Pricing - Simple, Transparent Bitcoin Business Operations | PaidIn"
+        description="Choose the plan that fits your business. All PaidIn plans include core features with enterprise-grade security. Start your 14-day free trial today."
+        canonical="https://www.paidin.io/pricing"
+      />
+      <div className="relative">
       {/* Hero Section - Minimalist & Elegant */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
         {/* Subtle Background Pattern */}
@@ -241,6 +248,65 @@ export default function Pricing() {
               backgroundImage: `radial-gradient(circle, #000 1px, transparent 1px)`,
               backgroundSize: '40px 40px'
             }}
+          />
+        </div>
+        {/* Animated Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{
+              x: [0, -20, 0],
+              y: [0, 25, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute top-20 left-10 w-[450px] h-[450px] bg-orange-500/25 rounded-full blur-[80px]"
+            style={{ willChange: 'transform' }}
+          />
+          <motion.div
+            animate={{
+              x: [0, -20, 0],
+              y: [0, 25, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute bottom-20 right-10 w-[450px] h-[450px] bg-orange-500/25 rounded-full blur-[80px]"
+            style={{ willChange: 'transform' }}
+          />
+          <motion.div
+            animate={{
+              x: [0, -20, 0],
+              y: [0, 25, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute top-20 right-10 w-[450px] h-[450px] bg-purple-500/15 rounded-full blur-[80px]"
+            style={{ willChange: 'transform' }}
+          />
+          <motion.div
+            animate={{
+              x: [0, -20, 0],
+              y: [0, 25, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute bottom-20 left-10 w-[450px] h-[450px] bg-purple-500/15 rounded-full blur-[80px]"
+            style={{ willChange: 'transform' }}
           />
         </div>
 
@@ -292,14 +358,9 @@ export default function Pricing() {
                   }`}
                 />
               </button>
-              <div className="flex items-center gap-2">
                 <span className={`text-sm font-medium transition-colors ${isAnnual ? 'text-gray-900' : 'text-gray-400'}`}>
                   Annual
                 </span>
-                <span className="text-xs bg-bitcoin/10 text-bitcoin px-2 py-0.5 rounded-full font-semibold">
-                  Save 17%
-                </span>
-              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -318,30 +379,40 @@ export default function Pricing() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className={`relative group ${
-                    plan.popular ? 'lg:-mt-8 lg:mb-8' : ''
-                  }`}
+                  className="relative group"
                 >
                   {/* Card */}
                   <div
                     className={`relative h-full rounded-3xl border-2 ${
                       plan.popular
-                        ? 'border-bitcoin bg-white shadow-2xl'
-                        : 'border-gray-200 bg-white hover:border-gray-300'
-                    } p-6 lg:p-8 flex flex-col transition-all duration-300`}
+                        ? 'border-bitcoin bg-white shadow-2xl group-hover:shadow-bitcoin/20'
+                        : 'border-gray-200 bg-white hover:border-gray-300 group-hover:shadow-xl'
+                    } p-6 lg:p-8 flex flex-col transition-all duration-300 group-hover:scale-[1.02]`}
                   >
                     {/* Popular Badge */}
                     {plan.popular && (
-                      <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                        <div className="bg-gradient-to-r from-bitcoin to-orange-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+                      <motion.div 
+                        className="absolute -top-4 left-0 right-0 mx-auto w-fit"
+                        animate={{
+                          scale: [1, 1.05, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <div className="bg-bitcoin text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
                           Most Popular
                         </div>
-                      </div>
+                      </motion.div>
                     )}
 
                     {/* Icon & Header */}
                     <div className="mb-6">
-                      <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${plan.gradient} mb-4 shadow-lg`}>
+                      <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl ${
+                        plan.popular ? 'bg-bitcoin' : `bg-gradient-to-br ${plan.gradient}`
+                      } mb-4 shadow-lg`}>
                         <Icon className="h-7 w-7 text-white" />
                       </div>
                       <h3 className="text-2xl lg:text-3xl font-black text-gray-900 mb-1">
@@ -377,6 +448,11 @@ export default function Pricing() {
                           </span>
                         </div>
                       )}
+                      {plan.name === "Enterprise" && isAnnual && (
+                        <p className="text-xs text-gray-400 mt-2 font-light">
+                          Tailored to your needs
+                        </p>
+                      )}
                       <p className="text-sm text-gray-500 mt-2 font-light">
                         {plan.employeeLimit}
                       </p>
@@ -385,12 +461,12 @@ export default function Pricing() {
                     {/* CTA Button */}
                     <Button
                       size="lg"
-                      className={`w-full mb-6 font-black rounded-xl ${
+                      className={`w-full mb-6 font-black rounded-xl transition-all duration-300 ${
                         plan.popular
-                          ? `bg-gradient-to-r ${plan.gradient} hover:opacity-90 text-white shadow-lg`
+                          ? 'bg-bitcoin hover:bg-orange-500 text-white shadow-lg'
                           : plan.name === "Enterprise"
-                          ? 'bg-gray-900 hover:bg-gray-800 text-white'
-                          : 'bg-gray-900 hover:bg-gray-800 text-white'
+                          ? 'bg-gray-900 hover:bg-orange-500 text-white'
+                          : 'bg-gray-900 hover:bg-orange-500 text-white'
                       }`}
                       onClick={() => {
                         if (plan.name === "Enterprise") {
@@ -401,7 +477,9 @@ export default function Pricing() {
                       }}
                     >
                       {plan.cta}
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className={`ml-2 h-5 w-5 ${
+                        plan.popular ? 'text-white' : 'text-white'
+                      }`} />
                     </Button>
 
                     {/* Features List */}
@@ -448,16 +526,16 @@ export default function Pricing() {
             </p>
           </motion.div>
 
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
             <div className="min-w-full inline-block">
               <table className="w-full">
-                <thead>
+                <thead className="sticky top-0 bg-white z-10">
                   <tr className="border-b-2 border-gray-200">
-                    <th className="text-left py-6 px-6 text-gray-900 font-semibold text-lg">Feature</th>
-                    <th className="text-center py-6 px-6 text-gray-900 font-semibold text-lg">Starter</th>
-                    <th className="text-center py-6 px-6 text-bitcoin font-semibold text-lg">Growth</th>
-                    <th className="text-center py-6 px-6 text-gray-900 font-semibold text-lg">Scale</th>
-                    <th className="text-center py-6 px-6 text-gray-900 font-semibold text-lg">Enterprise</th>
+                    <th className="text-left py-6 px-4 sm:px-6 text-gray-900 font-semibold text-base sm:text-lg">Feature</th>
+                    <th className="text-center py-6 px-4 sm:px-6 text-gray-900 font-semibold text-base sm:text-lg">Starter</th>
+                    <th className="text-center py-6 px-4 sm:px-6 text-bitcoin font-semibold text-base sm:text-lg bg-bitcoin/5">Growth</th>
+                    <th className="text-center py-6 px-4 sm:px-6 text-gray-900 font-semibold text-base sm:text-lg">Scale</th>
+                    <th className="text-center py-6 px-4 sm:px-6 text-gray-900 font-semibold text-base sm:text-lg">Enterprise</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -468,10 +546,12 @@ export default function Pricing() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: index * 0.03 }}
-                      className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors"
+                      className={`border-b border-gray-100 transition-colors ${
+                        index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'
+                      } hover:bg-gray-100/70`}
                     >
-                      <td className="py-5 px-6 text-gray-700 font-medium">{row.feature}</td>
-                      <td className="py-5 px-6 text-center">
+                      <td className="py-5 px-4 sm:px-6 text-gray-700 font-medium text-sm sm:text-base">{row.feature}</td>
+                      <td className="py-5 px-4 sm:px-6 text-center">
                         {typeof row.starter === 'boolean' ? (
                           row.starter ? (
                             <CheckCircle2 className="h-5 w-5 text-bitcoin mx-auto" />
@@ -479,10 +559,10 @@ export default function Pricing() {
                             <X className="h-5 w-5 text-gray-300 mx-auto" />
                           )
                         ) : (
-                          <span className="text-gray-600">{row.starter}</span>
+                          <span className="text-gray-600 text-sm sm:text-base">{row.starter}</span>
                         )}
                       </td>
-                      <td className="py-5 px-6 text-center">
+                      <td className="py-5 px-4 sm:px-6 text-center bg-bitcoin/5">
                         {typeof row.growth === 'boolean' ? (
                           row.growth ? (
                             <CheckCircle2 className="h-5 w-5 text-bitcoin mx-auto" />
@@ -490,10 +570,10 @@ export default function Pricing() {
                             <X className="h-5 w-5 text-gray-300 mx-auto" />
                           )
                         ) : (
-                          <span className="text-gray-600">{row.growth}</span>
+                          <span className="text-gray-600 font-medium text-sm sm:text-base">{row.growth}</span>
                         )}
                       </td>
-                      <td className="py-5 px-6 text-center">
+                      <td className="py-5 px-4 sm:px-6 text-center">
                         {typeof row.scale === 'boolean' ? (
                           row.scale ? (
                             <CheckCircle2 className="h-5 w-5 text-bitcoin mx-auto" />
@@ -501,10 +581,10 @@ export default function Pricing() {
                             <X className="h-5 w-5 text-gray-300 mx-auto" />
                           )
                         ) : (
-                          <span className="text-gray-600">{row.scale}</span>
+                          <span className="text-gray-600 text-sm sm:text-base">{row.scale}</span>
                         )}
                       </td>
-                      <td className="py-5 px-6 text-center">
+                      <td className="py-5 px-4 sm:px-6 text-center">
                         {typeof row.enterprise === 'boolean' ? (
                           row.enterprise ? (
                             <CheckCircle2 className="h-5 w-5 text-bitcoin mx-auto" />
@@ -512,7 +592,7 @@ export default function Pricing() {
                             <X className="h-5 w-5 text-gray-300 mx-auto" />
                           )
                         ) : (
-                          <span className="text-gray-600">{row.enterprise}</span>
+                          <span className="text-gray-600 text-sm sm:text-base">{row.enterprise}</span>
                         )}
                       </td>
                     </motion.tr>
@@ -569,19 +649,36 @@ export default function Pricing() {
                     }`}
                   />
                 </button>
+                <AnimatePresence>
                 {openFaq === index && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="px-6 pb-5"
-                  >
+                      initial={{ maxHeight: 0, opacity: 0 }}
+                      animate={{ 
+                        maxHeight: 1000, 
+                        opacity: 1,
+                        transition: {
+                          duration: 0.5,
+                          ease: [0.4, 0, 0.2, 1]
+                        }
+                      }}
+                      exit={{ 
+                        maxHeight: 0, 
+                        opacity: 0,
+                        transition: {
+                          duration: 0.4,
+                          ease: [0.4, 0, 0.2, 1]
+                        }
+                      }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-5">
                     <p className="text-gray-600 leading-relaxed font-light">
                       {faq.answer}
                     </p>
+                      </div>
                   </motion.div>
                 )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>
@@ -589,8 +686,37 @@ export default function Pricing() {
       </section>
 
       {/* Final CTA - Clean */}
-      <section className="relative py-20 lg:py-32 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative py-20 lg:py-32 bg-black overflow-hidden min-h-[600px]">
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Background Video */}
+          <video
+            src="/website-videos/pricing-page-cta-video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster="/website-photos/pricing-page-cta-video-poster.png"
+            className="absolute inset-0 w-full h-full object-cover opacity-30"
+            style={{ willChange: 'transform' }}
+          />
+          {/* Orange Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-bitcoin/40 to-orange-500/30"></div>
+          {/* Animated Orbs */}
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.2, 0.3, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-bitcoin/20 rounded-full blur-[120px]"
+          />
+        </div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -605,7 +731,7 @@ export default function Pricing() {
             </p>
             <Button
               size="lg"
-              className="bg-white text-gray-900 hover:bg-gray-100 font-black px-12 py-6 text-lg h-auto rounded-xl shadow-2xl hover:scale-105 transition-all duration-300"
+              className="bg-white text-gray-900 hover:bg-orange-500 hover:text-white font-black px-12 py-6 text-lg h-auto rounded-xl shadow-2xl hover:scale-105 transition-all duration-300"
               onClick={() => window.location.href = 'https://app.paidin.io'}
             >
               Start Free Trial
@@ -615,5 +741,6 @@ export default function Pricing() {
         </div>
       </section>
     </div>
+    </>
   );
 }

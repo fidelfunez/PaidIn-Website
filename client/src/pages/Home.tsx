@@ -4,6 +4,7 @@ import AccessibilitySection from "@/components/AccessibilitySection";
 import SocialProof from "@/components/SocialProof";
 import SecuritySection from "@/components/SecuritySection";
 import FinalCTA from "@/components/FinalCTA";
+import SEOHead from "@/components/SEOHead";
 
 function UnderConstruction() {
   return (
@@ -77,6 +78,11 @@ function UnderConstruction() {
 export default function Home() {
   return (
     <>
+      <SEOHead 
+        title="PaidIn - Complete Bitcoin Business Operations Platform"
+        description="PaidIn is the first Bitcoin-native business operations platform for companies who run entirely in Bitcoin. From payroll to expenses, compliance to analytics - everything in Bitcoin with enterprise security."
+        canonical="https://www.paidin.io/"
+      />
       <Hero />
       <Features />
       <AccessibilitySection />

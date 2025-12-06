@@ -18,13 +18,16 @@ const languages: Language[] = [
   { code: 'es', name: 'Español', flag: '🇪🇸' },
 ];
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  isDarkBackground?: boolean;
+}
+
+export default function LanguageSwitcher({ isDarkBackground = false }: LanguageSwitcherProps) {
   const [currentLang, setCurrentLang] = useState(languages[0]);
 
   const handleLanguageChange = (language: Language) => {
     setCurrentLang(language);
     // In a real app, this would trigger translation updates
-    console.log(`Language changed to: ${language.name}`);
   };
 
   return (
@@ -46,7 +49,7 @@ export default function LanguageSwitcher() {
             )}
             {currentLang.code === 'es' && (
               <img
-                src="/website-photos/header-language-button-image-esp.jpg"
+                src="/website-photos/header-language-button-image-esp.webp"
                 alt="Spain Flag"
                 className="absolute inset-0 w-full h-full object-cover scale-150"
               />
@@ -54,7 +57,7 @@ export default function LanguageSwitcher() {
           </Button>
         </DropdownMenuTrigger>
         {/* Language code outside the circle */}
-        <span className="text-xs font-semibold text-gray-700">
+        <span className={`text-xs font-semibold ${isDarkBackground ? "text-white/80" : "text-gray-700"}`}>
           {currentLang.code.toUpperCase()}
         </span>
       </div>

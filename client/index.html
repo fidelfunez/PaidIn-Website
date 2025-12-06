@@ -37,6 +37,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Poppins:wght@700&display=swap" rel="stylesheet" />
+    
+    <!-- Prevent white flash on page load -->
+    <style>
+      body {
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        min-height: 100vh;
+      }
+    </style>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "PaidIn",
+      "url": "https://www.paidin.io",
+      "logo": "https://www.paidin.io/paidin-logo.svg",
+      "description": "The first Bitcoin-native business operations platform for companies who run entirely in Bitcoin.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-281-541-7279",
+        "contactType": "Customer Service",
+        "email": "connect@paidin.io"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/paidin-software",
+        "https://x.com/PaidInHQ",
+        "https://www.instagram.com/paidin.io"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

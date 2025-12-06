@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, CheckCircle2, Bitcoin as BitcoinIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 
 const rotatingWords = [
   "Operations",
@@ -12,7 +12,7 @@ const rotatingWords = [
   "Expenses",
 ];
 
-export default function Hero() {
+function Hero() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   useEffect(() => {
@@ -117,8 +117,8 @@ export default function Hero() {
 
             {/* Subheadline - Enhanced */}
             <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-gray-600 leading-relaxed font-light max-w-xl">
-              Run your business operations entirely on Bitcoin.{" "}
-              <span className="text-gray-900 font-medium">No experience or technical knowledge required.</span>
+              <span className="block">Run your business operations entirely on Bitcoin</span>
+              <span className="block text-gray-900 font-medium">No experience or technical knowledge required.</span>
             </p>
 
             {/* CTAs - Refined Styling */}
@@ -132,7 +132,7 @@ export default function Hero() {
                 <ArrowRight className="ml-3 h-5 w-5" />
               </Button>
               <button className="text-sm sm:text-base lg:text-lg text-gray-700 hover:text-bitcoin font-semibold transition-colors flex items-center gap-2 py-4 sm:py-6 group min-h-[44px] w-full sm:w-auto justify-center sm:justify-start">
-                Watch Demo
+                Request Demo
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -196,3 +196,5 @@ export default function Hero() {
     </section>
   );
 }
+
+export default memo(Hero);

@@ -1,7 +1,7 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Zap, Sparkles, CheckCircle2, X, Check, Brain, Layout, Headphones, DollarSign, Wallet, Settings, MousePointerClick, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 
 const features = [
   {
@@ -328,7 +328,7 @@ function CarouselFeatures() {
   );
 }
 
-export default function AccessibilitySection() {
+function AccessibilitySection() {
   return (
     <section className="relative overflow-hidden bg-white min-h-screen flex items-center pb-32 lg:pb-48">
       {/* Top Transition Gradient - Extended bridge from Features (Black → Gray → Warm neutrals → White) */}
@@ -709,3 +709,5 @@ export default function AccessibilitySection() {
     </section>
   );
 }
+
+export default memo(AccessibilitySection);

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { memo } from "react";
 import { 
   Bitcoin, 
   TrendingUp, 
@@ -32,7 +33,7 @@ const quotes = [
   }
 ];
 
-export default function Features() {
+function Features() {
   return (
     <section className="relative overflow-hidden bg-black text-white min-h-screen flex items-center">
       {/* Bitcoin Quotes Ticker - Separator between Hero and Features */}
@@ -613,3 +614,5 @@ export default function Features() {
     </section>
   );
 }
+
+export default memo(Features);

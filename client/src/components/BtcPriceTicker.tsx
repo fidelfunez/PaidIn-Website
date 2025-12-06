@@ -7,7 +7,11 @@ interface BtcPrice {
   changePercent24h: number;
 }
 
-export default function BtcPriceTicker() {
+interface BtcPriceTickerProps {
+  isDarkBackground?: boolean;
+}
+
+export default function BtcPriceTicker({ isDarkBackground = false }: BtcPriceTickerProps) {
   const [btcPrice, setBtcPrice] = useState<BtcPrice | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -39,7 +43,7 @@ export default function BtcPriceTicker() {
     return (
       <div className="flex items-center space-x-2 text-sm">
         <div className="w-4 h-4 bg-bitcoin rounded-full animate-pulse"></div>
-        <span className="text-gray-600">Loading BTC...</span>
+        <span className={isDarkBackground ? "text-white/80" : "text-gray-600"}>Loading BTC...</span>
       </div>
     );
   }
@@ -57,7 +61,7 @@ export default function BtcPriceTicker() {
         alt="Bitcoin" 
         className="h-5 w-5"
       />
-      <span className="font-medium text-gray-900">
+      <span className={`font-medium ${isDarkBackground ? "text-white" : "text-gray-900"}`}>
         ${btcPrice.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}
       </span>
       <div className={`flex items-center space-x-1 ${isPositive ? 'text-green-600' : 'text-red-600'}`}>

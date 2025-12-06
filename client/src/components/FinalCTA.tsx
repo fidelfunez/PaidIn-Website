@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Calendar, CheckCircle2, Sparkles, Rocket, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
-export default function FinalCTA() {
+function FinalCTA() {
   return (
     <section className="relative overflow-hidden bg-bitcoin min-h-screen flex items-center">
       {/* Top Transition Gradient */}
@@ -129,3 +130,5 @@ export default function FinalCTA() {
     </section>
   );
 }
+
+export default memo(FinalCTA);

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 
 const testimonials = [
   {
@@ -11,7 +11,7 @@ const testimonials = [
   },
   {
     quote: "The compliance features & tax automations alone saved us from hiring two accountants.",
-    author: "Monica Anderson",
+    author: "Monica Saenz",
     role: "CFO",
     company: "Numa Health",
     rating: 5,
@@ -25,7 +25,7 @@ const testimonials = [
   },
 ];
 
-export default function SocialProof() {
+function SocialProof() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   // Auto-rotate carousel
@@ -258,8 +258,8 @@ export default function SocialProof() {
           </div>
           <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16">
             {[
-              { name: "Breez", logo: "/website-photos/partner-breez-logo.webp", maxWidth: "130px" },
-              { name: "Plaid", logo: "/website-photos/partner-plaid-logo.webp", maxWidth: "130px" },
+              { name: "Breez", logo: "/website-photos/partner-breez-logo.webp", maxWidth: "240px", customHeight: "h-14 sm:h-16 lg:h-20" },
+              { name: "Plaid", logo: "/website-photos/partner-plaid-logo.webp", maxWidth: "240px", customHeight: "h-14 sm:h-16 lg:h-20" },
               { name: "Stripe", logo: "/website-photos/partner-stripe-logo.webp", maxWidth: "80px" },
               { name: "Strike", logo: "/website-photos/partner-strike-logo.webp", isWhite: true },
               { name: "Netlify", logo: "/website-photos/partner-netlify-logo.webp" },
@@ -275,7 +275,7 @@ export default function SocialProof() {
                   scale: 1.05,
                   transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
                 }}
-                className="h-10 sm:h-12 lg:h-14 w-auto opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer group"
+                className={`${partner.customHeight || "h-10 sm:h-12 lg:h-14"} w-auto opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer group`}
                 style={{ maxWidth: partner.maxWidth || "120px" }}
               >
                 <img
@@ -300,3 +300,5 @@ export default function SocialProof() {
     </section>
   );
 }
+
+export default memo(SocialProof);
