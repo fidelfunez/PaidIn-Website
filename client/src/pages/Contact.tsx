@@ -578,9 +578,9 @@ export default function Contact() {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                      className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-bitcoin to-orange-500 mb-6 shadow-lg"
+                      className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white border-4 border-bitcoin mb-6 shadow-lg"
                     >
-                      <CheckCircle2 className="h-10 w-10 text-white" />
+                      <CheckCircle2 className="h-10 w-10 text-bitcoin" />
                     </motion.div>
                     <h3 className="text-3xl font-black text-gray-900 mb-4">
                       Message Sent!
@@ -958,7 +958,7 @@ export default function Contact() {
           }}
         />
         {/* Dark Overlay for better text readability */}
-        <div className="absolute inset-0 bg-[#050a14]/20"></div>
+        <div className="absolute inset-0 bg-[#050a14]/10"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <motion.div
