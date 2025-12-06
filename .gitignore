@@ -4,5 +4,6 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
-*.mp4
-client/public/website-videos/
+# Allow website videos to be committed
+# *.mp4
+# client/public/website-videos/
