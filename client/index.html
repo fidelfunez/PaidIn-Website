@@ -74,6 +74,20 @@
     </script>
   </head>
   <body>
+    <!-- Hidden form for Netlify Forms detection during build -->
+    <form name="contact-form" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="company" />
+      <input type="text" name="companySize" />
+      <input type="text" name="industry" />
+      <input type="text" name="contactReason" />
+      <textarea name="message"></textarea>
+      <input type="file" name="files" multiple />
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

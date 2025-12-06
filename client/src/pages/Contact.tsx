@@ -243,29 +243,62 @@ export default function Contact() {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        company: "",
-        companySize: "",
-        industry: "",
-        contactReason: "",
-        message: "",
-        files: [],
+    try {
+      // Create FormData for Netlify Forms
+      const formDataToSend = new FormData();
+      formDataToSend.append('form-name', 'contact-form');
+      formDataToSend.append('firstName', formData.firstName);
+      formDataToSend.append('lastName', formData.lastName);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone || '');
+      formDataToSend.append('company', formData.company || '');
+      formDataToSend.append('companySize', formData.companySize || '');
+      formDataToSend.append('industry', formData.industry || '');
+      formDataToSend.append('contactReason', formData.contactReason);
+      formDataToSend.append('message', formData.message);
+      
+      // Add files if any
+      formData.files.forEach((file) => {
+        formDataToSend.append('files', file);
       });
-      setMessageCount(0);
-    }, 5000);
+      
+      // Submit to Netlify Forms
+      // Using FormData with fetch automatically sets Content-Type to multipart/form-data
+      const response = await fetch('/', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            company: "",
+            companySize: "",
+            industry: "",
+            contactReason: "",
+            message: "",
+            files: [],
+          });
+          setMessageCount(0);
+        }, 5000);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Show error message to user
+      alert('There was an error submitting your form. Please try again or email us directly at connect@paidin.io');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactMethods = [
@@ -563,12 +596,20 @@ export default function Contact() {
                 ) : (
                   <motion.form
                     key="form"
+                    name="contact-form"
+                    method="POST"
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     onSubmit={handleSubmit}
                     className="relative overflow-hidden rounded-3xl border-2 border-gray-200 bg-white p-8 lg:p-12 shadow-xl"
                   >
+                    {/* Hidden field for Netlify bot protection */}
+                    <input type="hidden" name="form-name" value="contact-form" />
+                    <input type="hidden" name="bot-field" />
+                    
                     {/* Glow effect */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-bitcoin/20 via-orange-500/20 to-bitcoin/20 rounded-3xl blur-xl opacity-0 hover:opacity-100 transition-opacity duration-500 -z-10"></div>
 
