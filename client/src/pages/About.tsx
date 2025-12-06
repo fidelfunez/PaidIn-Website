@@ -217,7 +217,8 @@ export default function About() {
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
+            poster="/website-photos/about-page-hero-video-poster.png"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ 
               willChange: 'transform',
@@ -812,7 +813,7 @@ export default function About() {
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             poster="/website-photos/about-page-cta-video-poster.png"
             className="absolute inset-0 w-full h-full object-cover opacity-30"
             style={{ willChange: 'transform' }}

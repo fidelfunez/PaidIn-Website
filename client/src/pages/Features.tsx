@@ -302,7 +302,7 @@ export default function Features() {
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/website-photos/features-page-hero-video-poster.png"
             className="absolute inset-0 w-full h-full object-cover opacity-70"
             style={{ willChange: 'transform' }}
@@ -854,7 +854,7 @@ export default function Features() {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="none"
           className="absolute inset-0 w-full h-full object-cover opacity-50"
           style={{ willChange: 'transform' }}
         />

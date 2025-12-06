@@ -644,7 +644,7 @@ export default function Security() {
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             poster="/website-photos/security-page-cta-video-poster.png"
             className="absolute inset-0 w-full h-full object-cover opacity-30"
             style={{ willChange: 'transform' }}

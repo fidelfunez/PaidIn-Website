@@ -305,7 +305,7 @@ export default function Contact() {
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="auto"
               poster="/website-photos/contact-page-hero-video-poster.png"
               className="absolute inset-0 w-full h-full object-cover"
               style={{
