@@ -17,6 +17,7 @@ import {
   Heart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getVideoPoster } from "@/lib/utils";
 
 // Hash characters for the scrambling effect
 const hashChars = "0123456789abcdef";
@@ -200,6 +201,23 @@ const teamMembers = [
 ];
 
 export default function About() {
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Optimized video loading: Start loading after component mounts
+  // This allows poster to show immediately while video loads in background
+  useEffect(() => {
+    if (heroVideoRef.current) {
+      // Small delay to ensure poster displays first
+      const timer = setTimeout(() => {
+        if (heroVideoRef.current && heroVideoRef.current.preload === 'metadata') {
+          heroVideoRef.current.preload = 'auto';
+          heroVideoRef.current.load();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <div className="relative">
       <SEOHead 
@@ -212,13 +230,14 @@ export default function About() {
         {/* Background Video with Orange Filter */}
         <div className="absolute inset-0 z-0">
           <video
+            ref={heroVideoRef}
             src="/website-videos/about-page-hero-video.mp4"
             autoPlay
             loop
             muted
             playsInline
-            preload="auto"
-            poster="/website-photos/about-page-hero-video-poster.png"
+            preload="metadata"
+            poster={getVideoPoster("about-page-hero-video-poster")}
             className="absolute inset-0 w-full h-full object-cover"
             style={{ 
               willChange: 'transform',
@@ -814,7 +833,7 @@ export default function About() {
             muted
             playsInline
             preload="none"
-            poster="/website-photos/about-page-cta-video-poster.png"
+            poster={getVideoPoster("about-page-cta-video-poster")}
             className="absolute inset-0 w-full h-full object-cover opacity-30"
             style={{ willChange: 'transform' }}
           />

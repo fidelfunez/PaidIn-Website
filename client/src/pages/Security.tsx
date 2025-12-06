@@ -48,6 +48,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getVideoPoster } from "@/lib/utils";
 
 // Hash characters for the scrambling effect
 const hashChars = "0123456789abcdef";
@@ -645,7 +646,7 @@ export default function Security() {
             muted
             playsInline
             preload="none"
-            poster="/website-photos/security-page-cta-video-poster.png"
+            poster={getVideoPoster("security-page-cta-video-poster")}
             className="absolute inset-0 w-full h-full object-cover opacity-30"
             style={{ willChange: 'transform' }}
           />

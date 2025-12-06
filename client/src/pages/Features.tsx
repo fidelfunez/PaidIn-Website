@@ -27,6 +27,7 @@ import {
   MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getVideoPoster } from "@/lib/utils";
 
 // Component for animated text with fade-in and slide-up effect
 function AnimatedText({ text, className, delay = 0, highlightWords = [] }: { text: string; className?: string; delay?: number; highlightWords?: string[] }) {
@@ -231,6 +232,22 @@ export default function Features() {
   const featureRefs = useRef<(HTMLElement | null)[]>([]);
   const dashboardOverviewRef = useRef<HTMLElement | null>(null);
   const andMoreSectionRef = useRef<HTMLElement | null>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Optimized video loading: Start loading after component mounts
+  // This allows poster to show immediately while video loads in background
+  useEffect(() => {
+    if (heroVideoRef.current) {
+      // Small delay to ensure poster displays first
+      const timer = setTimeout(() => {
+        if (heroVideoRef.current && heroVideoRef.current.preload === 'metadata') {
+          heroVideoRef.current.preload = 'auto';
+          heroVideoRef.current.load();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   useEffect(() => {
     const observers = featureRefs.current.map((ref, index) => {
@@ -297,13 +314,14 @@ export default function Features() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Background Video */}
           <video
+            ref={heroVideoRef}
             src="/website-videos/features-page-cta-video.mp4"
             autoPlay
             loop
             muted
             playsInline
-            preload="auto"
-            poster="/website-photos/features-page-hero-video-poster.png"
+            preload="metadata"
+            poster={getVideoPoster("features-page-hero-video-poster")}
             className="absolute inset-0 w-full h-full object-cover opacity-70"
             style={{ willChange: 'transform' }}
           />

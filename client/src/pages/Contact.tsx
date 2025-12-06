@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getVideoPoster } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ChevronDown, Check } from "lucide-react";
@@ -168,6 +169,22 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Optimized video loading: Start loading after component mounts
+  // This allows poster to show immediately while video loads in background
+  useEffect(() => {
+    if (heroVideoRef.current) {
+      // Small delay to ensure poster displays first
+      const timer = setTimeout(() => {
+        if (heroVideoRef.current && heroVideoRef.current.preload === 'metadata') {
+          heroVideoRef.current.preload = 'auto';
+          heroVideoRef.current.load();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleInputChange = (field: keyof FormData, value: string | File[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -301,12 +318,13 @@ export default function Contact() {
           {/* Video Background with Orange Filter */}
           <div className="absolute inset-0 z-0">
             <video
+              ref={heroVideoRef}
               autoPlay
               loop
               muted
               playsInline
-              preload="auto"
-              poster="/website-photos/contact-page-hero-video-poster.png"
+              preload="metadata"
+              poster={getVideoPoster("contact-page-hero-video-poster")}
               className="absolute inset-0 w-full h-full object-cover"
               style={{
                 filter: 'hue-rotate(10deg) saturate(1.1) brightness(0.95)',

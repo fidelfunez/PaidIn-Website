@@ -18,6 +18,7 @@ import {
   CreditCard
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getVideoPoster } from "@/lib/utils";
 
 const pricingPlans = [
   {
@@ -696,7 +697,7 @@ export default function Pricing() {
             muted
             playsInline
             preload="none"
-            poster="/website-photos/pricing-page-cta-video-poster.png"
+            poster={getVideoPoster("pricing-page-cta-video-poster")}
             className="absolute inset-0 w-full h-full object-cover opacity-30"
             style={{ willChange: 'transform' }}
           />
