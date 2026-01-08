@@ -103,7 +103,7 @@ function FinalCTA() {
               <Button
                 size="lg"
                 className="bg-white text-bitcoin hover:bg-gray-100 font-black px-6 sm:px-10 py-5 sm:py-7 text-base sm:text-lg h-auto min-h-[44px] shadow-2xl hover:shadow-white/30 transition-all duration-300 group rounded-full w-full sm:w-auto"
-                onClick={() => window.location.href = 'https://app.paidin.io'}
+                onClick={() => window.location.href = 'https://app.paidin.io/signup'}
               >
                 Get Started Free
                 <ArrowRight className="ml-3 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-1 transition-transform" />

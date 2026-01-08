@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useIsSafari } from "@/lib/safari-detection";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -19,9 +20,20 @@ export default function AnimatedSection({
   duration = 0.8,
   stagger = 0.1,
 }: AnimatedSectionProps) {
+  const isSafari = useIsSafari();
+
+  // Safari: Skip all animations - just render immediately for maximum performance
+  if (isSafari) {
+    return (
+      <div className={className}>
+        {children}
+      </div>
+    );
+  }
+
+  // Other browsers: Keep original Framer Motion implementation
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   const animations = {
     fadeInUp: {
       initial: { opacity: 0, y: 40 },

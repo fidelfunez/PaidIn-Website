@@ -581,7 +581,7 @@ function Features() {
                 backgroundSize: '200% 100%',
                 backgroundColor: '#c2410c', // Darker orange for better shine visibility
               }}
-              onClick={() => window.location.href = 'https://app.paidin.io'}
+              onClick={() => window.location.href = 'https://app.paidin.io/signup'}
             >
               {/* Animated gradient overlay */}
               <motion.div

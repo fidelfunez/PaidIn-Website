@@ -28,15 +28,36 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getVideoPoster } from "@/lib/utils";
+import { useIsSafari } from "@/lib/safari-detection";
 
 // Component for animated text with fade-in and slide-up effect
 function AnimatedText({ text, className, delay = 0, highlightWords = [] }: { text: string; className?: string; delay?: number; highlightWords?: string[] }) {
+  const isSafari = useIsSafari();
+  
+  // Split text into words
+  const words = text.split(" ");
+
+  // Safari: No animations at all - just render the text immediately for maximum performance
+  if (isSafari) {
+    return (
+      <span className={className}>
+        {words.map((word, index) => {
+          const shouldHighlight = highlightWords.some(hw => word.toLowerCase().includes(hw.toLowerCase()));
+          return (
+            <span key={`${word}-${index}`} className={shouldHighlight ? "text-bitcoin" : ""}>
+              {word}
+              {index < words.length - 1 && " "}
+            </span>
+          );
+        })}
+      </span>
+    );
+  }
+  
+  // Other browsers: Keep word-by-word animation with Framer Motion
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
-  // Split text into words for word-by-word animation
-  const words = text.split(" ");
-
   return (
     <span ref={ref} className={className}>
       {words.map((word, index) => {
@@ -998,7 +1019,7 @@ export default function Features() {
             <Button
               size="lg"
                 className="bg-gradient-to-r from-bitcoin to-orange-500 hover:from-orange-500 hover:to-bitcoin text-white font-black px-12 py-7 text-lg lg:text-xl h-auto shadow-2xl hover:shadow-bitcoin/50 hover:scale-105 transition-all duration-300 rounded-full group"
-              onClick={() => window.location.href = 'https://app.paidin.io'}
+              onClick={() => window.location.href = 'https://app.paidin.io/signup'}
             >
               Start Building on Bitcoin
                 <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />

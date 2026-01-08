@@ -473,7 +473,8 @@ export default function Pricing() {
                         if (plan.name === "Enterprise") {
                           window.location.href = '/contact';
                         } else {
-                          window.location.href = 'https://app.paidin.io';
+                          const planParam = plan.name.toLowerCase();
+                          window.location.href = `https://app.paidin.io/signup?plan=${planParam}`;
                         }
                       }}
                     >
@@ -733,7 +734,7 @@ export default function Pricing() {
             <Button
               size="lg"
               className="bg-white text-gray-900 hover:bg-orange-500 hover:text-white font-black px-12 py-6 text-lg h-auto rounded-xl shadow-2xl hover:scale-105 transition-all duration-300"
-              onClick={() => window.location.href = 'https://app.paidin.io'}
+              onClick={() => window.location.href = 'https://app.paidin.io/signup'}
             >
               Start Free Trial
               <ArrowRight className="ml-3 h-5 w-5" />

@@ -37,4 +37,4 @@
 [dev]
   command = "npm run dev"
   port = 3000
-  publish = "dist"
+  publish = "dist" 

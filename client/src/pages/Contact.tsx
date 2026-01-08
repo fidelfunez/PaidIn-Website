@@ -22,6 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getVideoPoster } from "@/lib/utils";
+import { useIsSafari } from "@/lib/safari-detection";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ChevronDown, Check } from "lucide-react";
@@ -29,11 +30,32 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Component for animated text with fade-in and slide-up effect
 function AnimatedText({ text, className, delay = 0, highlightWords = [] }: { text: string; className?: string; delay?: number; highlightWords?: string[] }) {
+  const isSafari = useIsSafari();
+  
+  // Split text into words
+  const words = text.split(" ");
+
+  // Safari: No animations at all - just render the text immediately for maximum performance
+  if (isSafari) {
+    return (
+      <span className={className}>
+        {words.map((word, index) => {
+          const shouldHighlight = highlightWords.some(hw => word.toLowerCase().includes(hw.toLowerCase()));
+          return (
+            <span key={`${word}-${index}`} className={shouldHighlight ? "text-bitcoin" : ""}>
+              {word}
+              {index < words.length - 1 && " "}
+            </span>
+          );
+        })}
+      </span>
+    );
+  }
+  
+  // Other browsers: Keep word-by-word animation with Framer Motion
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
-  const words = text.split(" ");
-
   return (
     <span ref={ref} className={className}>
       {words.map((word, index) => {

@@ -1,15 +1,49 @@
 import { motion, useInView } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import SEOHead from "@/components/SEOHead";
+import { useIsSafari } from "@/lib/safari-detection";
+import { 
+  Shield, 
+  Lock, 
+  Eye, 
+  Server, 
+  CheckCircle2, 
+  Fingerprint, 
+  Zap, 
+  Key,
+  ArrowRight
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { getVideoPoster } from "@/lib/utils";
 
 // Component for animated text with fade-in and slide-up effect
 function AnimatedText({ text, className, delay = 0, highlightWords = [] }: { text: string; className?: string; delay?: number; highlightWords?: string[] }) {
+  const isSafari = useIsSafari();
+  
+  // Split text into words
+  const words = text.split(" ");
+
+  // Safari: No animations at all - just render the text immediately for maximum performance
+  if (isSafari) {
+    return (
+      <span className={className}>
+        {words.map((word, index) => {
+          const shouldHighlight = highlightWords.some(hw => word.toLowerCase().includes(hw.toLowerCase()));
+          return (
+            <span key={`${word}-${index}`} className={shouldHighlight ? "text-bitcoin" : ""}>
+              {word}
+              {index < words.length - 1 && " "}
+            </span>
+          );
+        })}
+      </span>
+    );
+  }
+  
+  // Other browsers: Keep word-by-word animation with Framer Motion
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
-  // Split text into words for word-by-word animation
-  const words = text.split(" ");
-
   return (
     <span ref={ref} className={className}>
       {words.map((word, index) => {
@@ -36,25 +70,33 @@ function AnimatedText({ text, className, delay = 0, highlightWords = [] }: { tex
     </span>
   );
 }
-import { 
-  Shield, 
-  Lock, 
-  Eye, 
-  Server, 
-  CheckCircle2, 
-  Fingerprint, 
-  Zap, 
-  Key,
-  ArrowRight
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { getVideoPoster } from "@/lib/utils";
 
 // Hash characters for the scrambling effect
 const hashChars = "0123456789abcdef";
 
 // Component for hash-to-text animation
 function HashToText({ text, className, delay = 0, highlightWords = [] }: { text: string; className?: string; delay?: number; highlightWords?: string[] }) {
+  const isSafari = useIsSafari();
+  
+  // Safari: Just display the text immediately with highlighting, no animation
+  if (isSafari) {
+    if (highlightWords.length === 0) {
+      return <span className={className}>{text}</span>;
+    }
+    
+    // Process text to highlight words
+    let processedText = text;
+    highlightWords.forEach((word) => {
+      const regex = new RegExp(`\\b${word}\\b`, 'gi');
+      processedText = processedText.replace(regex, (match) => {
+        return `<span class="text-bitcoin">${match}</span>`;
+      });
+    });
+    
+    return <span className={className} dangerouslySetInnerHTML={{ __html: processedText }} />;
+  }
+
+  // Other browsers: Use the hash-to-text animation
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
@@ -683,7 +725,7 @@ export default function Security() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-bitcoin to-orange-500 hover:from-orange-500 hover:to-bitcoin text-white font-black px-12 py-6 text-lg lg:text-xl h-auto shadow-2xl hover:shadow-bitcoin/40 hover:scale-105 transition-all duration-300 rounded-full"
-              onClick={() => window.location.href = 'https://app.paidin.io'}
+              onClick={() => window.location.href = 'https://app.paidin.io/signup'}
             >
               Get Started
               <ArrowRight className="ml-3 h-5 w-5" />

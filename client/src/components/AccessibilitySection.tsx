@@ -692,7 +692,7 @@ function AccessibilitySection() {
               size="lg"
               className="bg-gradient-to-r from-orange-500 to-bitcoin hover:from-bitcoin hover:to-orange-500 text-white font-bold px-12 py-6 text-lg h-auto shadow-2xl hover:shadow-bitcoin/50 transition-all duration-300 rounded-full group"
               style={{ backgroundColor: '#f7931a' }}
-              onClick={() => window.location.href = 'https://app.paidin.io'}
+              onClick={() => window.location.href = 'https://app.paidin.io/signup'}
             >
               Get Started Free
               <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
