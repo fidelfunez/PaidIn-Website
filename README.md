@@ -120,8 +120,8 @@ This project is configured for easy deployment on Netlify:
 
 ## 📝 License
 
-MIT License - see LICENSE file for details
+MIT License - Use it, fork it, build with it.
 
 ---
 
-Built with 🧡 for PaidIn & the Bitcoin community.
+Built with 🧡 for PaidIn.
