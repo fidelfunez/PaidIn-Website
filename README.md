@@ -1,8 +1,8 @@
-# PaidIn Marketing Website
+# PaidIn Marketing & Landing Website
 
-A modern, responsive marketing website for PaidIn - the Bitcoin-native payroll platform.
+A modern, responsive marketing website for PaidIn - the Bitcoin accounting software for small businesses.
 
-## 🚀 Features
+## Features
 
 - **Modern React + TypeScript** - Built with React 18 and TypeScript
 - **Tailwind CSS** - Utility-first CSS framework for rapid UI development
@@ -11,7 +11,7 @@ A modern, responsive marketing website for PaidIn - the Bitcoin-native payroll p
 - **Responsive Design** - Optimized for all devices
 - **Dark Mode Support** - Built-in theme switching
 
-## 🛠️ Local Development
+## Local Development
 
 ### Prerequisites
 
@@ -46,7 +46,7 @@ A modern, responsive marketing website for PaidIn - the Bitcoin-native payroll p
 - `npm run preview` - Preview production build locally
 - `npm run check` - Type check with TypeScript
 
-## 🌐 Deployment
+## Deployment
 
 ### Netlify Deployment
 
@@ -91,7 +91,7 @@ This project is configured for easy deployment on Netlify:
 └── tsconfig.json         # TypeScript configuration
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Styling
 - **Tailwind CSS** - Modify `tailwind.config.ts` for theme customization
@@ -102,7 +102,7 @@ This project is configured for easy deployment on Netlify:
 - **Vite** - Modify `vite.config.ts` for build settings
 - **TypeScript** - Update `tsconfig.json` for TypeScript options
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -124,4 +124,4 @@ MIT License - see LICENSE file for details
 
 ---
 
-Built with ❤️ for PaidIn 
+Built with 🧡 for PaidIn & the Bitcoin community.
